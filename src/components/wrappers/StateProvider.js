@@ -18,7 +18,7 @@ class StateProvider extends Component {
     render() {
         let children = wrapChildrenWith(this.props.children, {
             data: this.state,
-            actions: objectWithOnly(this, ['addNew', 'changeFilter', 'changeStatus', 'changeMode', 'setSearchQuery', 'handlePriorityChange', 'handleDueDateChange'])
+            actions: objectWithOnly(this, ['addNew', 'changeFilter', 'changeStatus', 'changeMode', 'setSearchQuery', 'handlePriorityChange', 'handleDueDateChange', 'sortByDueDate'])
         });
 
         return <div>{children}</div>;
@@ -42,6 +42,21 @@ class StateProvider extends Component {
         let updatedList = updateDueDate(this.state.list, itemId, dueDate);
         this.setState({list: updatedList});
     }
+
+
+    //sort by due date
+
+    sortByDueDate = (order) => {
+        let updatedList = this.state.list.sort((a, b) => {
+            const aDate = new Date(a.dueDate);
+            const bDate = new Date(b.dueDate);
+            if (order === 'asc'){
+                return aDate - bDate; // Ascending order
+            }
+            return bDate - aDate; // Ascending order
+        });
+        this.setState({list: updatedList});
+    };
 
     //sort by priority
     
