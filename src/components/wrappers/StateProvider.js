@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {FILTER_ALL} from '../../services/filter';
 import {MODE_CREATE, MODE_NONE} from '../../services/mode';
 import {objectWithOnly, wrapChildrenWith} from '../../util/common';
-import {getAll, addToList, updateStatus} from '../../services/todo';
+import {getAll, addToList, updateStatus, updatePriority, updateDueDate} from '../../services/todo';
 
 class StateProvider extends Component {
     constructor() {
@@ -18,17 +18,34 @@ class StateProvider extends Component {
     render() {
         let children = wrapChildrenWith(this.props.children, {
             data: this.state,
-            actions: objectWithOnly(this, ['addNew', 'changeFilter', 'changeStatus', 'changeMode', 'setSearchQuery'])
+            actions: objectWithOnly(this, ['addNew', 'changeFilter', 'changeStatus', 'changeMode', 'setSearchQuery', 'handlePriorityChange', 'handleDueDateChange'])
         });
 
         return <div>{children}</div>;
     }
 
     addNew(text) {
-        let updatedList = addToList(this.state.list, {text, completed: false});
+        let updatedList = addToList(this.state.list, {text, completed: false, priority:'medium', dueDate:''});
 
         this.setState({list: updatedList});
     }
+
+    //edit priority
+    handlePriorityChange(itemId, priority) {
+        let updatedList = updatePriority(this.state.list, itemId, priority);
+
+        this.setState({list: updatedList});
+    }
+
+     //edit due date
+     handleDueDateChange(itemId, dueDate) {
+        let updatedList = updateDueDate(this.state.list, itemId, dueDate);
+        this.setState({list: updatedList});
+    }
+
+    //sort by priority
+    
+    
 
     changeFilter(filter) {
         this.setState({filter});

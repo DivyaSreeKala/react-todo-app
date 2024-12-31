@@ -10,9 +10,15 @@ class CheckBox extends Component {
 
     handleChange(e) {
         const {checked} = e.target;
-
-        this.setState({checked});
-        this.props.onChange(checked);
+        if(checked){
+            if (window.confirm('Do you want to mark the task as completed ?')){
+                this.setState({checked});
+                this.props.onChange(checked);
+            }
+        }else{
+            this.setState({checked});
+            this.props.onChange(checked);
+        }
     }
 
     render() {

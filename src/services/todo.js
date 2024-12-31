@@ -9,17 +9,23 @@ export function getAll() {
         {
             id: 1,
             text: 'Learn Javascript',
-            completed: false
+            completed: false,
+            priority:'low',
+            dueDate:'2024-12-31'
         },
         {
             id: 2,
             text: 'Learn React',
-            completed: false
+            completed: false,
+            priority:'medium',
+            dueDate:'2024-12-20'
         },
         {
             id: 3,
             text: 'Build a React App',
-            completed: false
+            completed: false,
+            priority:'high',
+            dueDate:'2024-12-24'
         }
     ]
 }
@@ -35,6 +41,30 @@ export function updateStatus(items, itemId, completed) {
     return update(items, {
         [index]: {
             completed: {$set: completed}
+        }
+    });
+}
+
+//function to update priority
+export function updatePriority(items, itemId, priority) {
+    let index = items.findIndex(item => item.id === itemId);
+
+    // Returns a new list of data with updated item.
+    return update(items, {
+        [index]: {
+            priority: {$set: priority}
+        }
+    });
+}
+
+//function to update due date
+export function updateDueDate(items, itemId, dueDate) {
+    let index = items.findIndex(item => item.id === itemId);
+
+    // Returns a new list of data with updated item.
+    return update(items, {
+        [index]: {
+            dueDate: {$set: dueDate}
         }
     });
 }

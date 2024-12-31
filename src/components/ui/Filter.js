@@ -15,6 +15,10 @@ export default function Filter(props) {
                     </a>
                 </li>
             ))}
+            <br/>
+            Sort by : <button onClick={''} >Due Date(asc)</button>
+            <button onClick={''} >Due Date(desc)</button>
+            <button onClick={''} >High to low priority</button>
         </ul>
     );
 }

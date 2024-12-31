@@ -3,8 +3,8 @@ import TodoItem from './TodoItem';
 import {MSG_NO_ITEMS} from '../../assets/text/en_US';
 
 export default function FilteredList(props) {
-    const {items, changeStatus} = props;
-
+    const {items, changeStatus, handlePriorityChange, handleDueDateChange} = props;
+    console.log(props)
     if (items.length === 0) {
         return (
             <p className="alert alert-info">{MSG_NO_ITEMS}</p>
@@ -14,7 +14,7 @@ export default function FilteredList(props) {
     return (
         <ul className="list-unstyled">
             {items.map(item => (
-                <TodoItem key={item.id} data={item} changeStatus={changeStatus}/>
+                <TodoItem key={item.id} data={item} changeStatus={changeStatus} handlePriorityChange={handlePriorityChange} handleDueDateChange={handleDueDateChange}/>
             ))}
         </ul>
     );
