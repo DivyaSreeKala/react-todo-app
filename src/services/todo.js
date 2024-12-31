@@ -69,6 +69,20 @@ export function updateDueDate(items, itemId, dueDate) {
     });
 }
 
+
+//function to update due date
+export function sortUsingDuedate(items, order) {
+     return items.sort((a, b) => {
+        const aDate = new Date(a.dueDate);
+        const bDate = new Date(b.dueDate);
+        if (order === 'asc'){
+            return aDate - bDate; // Ascending order
+        }
+        return bDate - aDate; // Descending order
+    });
+}
+
+
 /**
  * A counter to generate a unique id for a todo item.
  * Can remove this logic when the todo is created using backend/database logic.

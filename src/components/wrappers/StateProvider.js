@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {FILTER_ALL} from '../../services/filter';
 import {MODE_CREATE, MODE_NONE} from '../../services/mode';
 import {objectWithOnly, wrapChildrenWith} from '../../util/common';
-import {getAll, addToList, updateStatus, updatePriority, updateDueDate} from '../../services/todo';
+import {getAll, addToList, updateStatus, updatePriority, updateDueDate, sortUsingDuedate} from '../../services/todo';
 
 class StateProvider extends Component {
     constructor() {
@@ -47,14 +47,7 @@ class StateProvider extends Component {
     //sort by due date
 
     sortByDueDate = (order) => {
-        let updatedList = this.state.list.sort((a, b) => {
-            const aDate = new Date(a.dueDate);
-            const bDate = new Date(b.dueDate);
-            if (order === 'asc'){
-                return aDate - bDate; // Ascending order
-            }
-            return bDate - aDate; // Ascending order
-        });
+        let updatedList = sortUsingDuedate(this.state.list, order);
         this.setState({list: updatedList});
     };
 
